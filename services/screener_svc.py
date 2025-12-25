@@ -20,6 +20,10 @@ class ScreenerService:
         核心筛选逻辑：获取数据 -> 分组 -> 计算连续增长 -> 返回代码列表
         """
         try:
+
+            logger.info(
+                "filter_stocks params: start_date=%s, industry_names=%s, period_type=%s", start_date, industry_names, period_type)
+
             # 1. 映射周期类型到数据库字段值
             datemdd_filter = "年报" if period_type == "year" else "季报"
             

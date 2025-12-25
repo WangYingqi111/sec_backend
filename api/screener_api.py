@@ -17,7 +17,7 @@ async def get_screener_list(request: ScreenerRequest):
         # 调用业务层
         stocks = ScreenerService.filter_stocks(
             start_date=request.start_date,
-            industry_names=request.industry_name,
+            industry_names=request.industry_name or [],
             min_periods=request.min_consecutive_periods,
             rev_rate=request.revenue_growth_rate,
             profit_rate=request.profit_growth_rate,
@@ -25,6 +25,9 @@ async def get_screener_list(request: ScreenerRequest):
             period_type=request.period_type
         )
         
+        logger.info(
+            "filter_stocks params: start_date=%s, industry_names=%s, period_type=%s", start_date, industry_names, period_type)
+
         return {
             "stocks": stocks,
             "count": len(stocks)
