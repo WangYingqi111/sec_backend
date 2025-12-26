@@ -40,7 +40,7 @@ class ScreenerService:
                 return []
 
             # 3. 初步过滤：只取对应的报表类型
-            df = df_raw[df_raw['DATEMMDD'] == datemdd_filter].copy()
+            df = df_raw.copy()
 
             # 4. 确定使用的列名 (年报用同比 YSTZ/SJLTZ，季报用环比 YSHZ/SJLHZ)
             # 也可以根据您的具体业务逻辑调整，比如季报也看同比

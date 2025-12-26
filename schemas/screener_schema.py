@@ -15,7 +15,7 @@ class ScreenerRequest(BaseModel):
 class StockItem(BaseModel):
     security_code: str
     security_name: str
-    industry: str
+    industry: Optional[str] = None
 
 # 响应模型：股票列表
 class ScreenerResponse(BaseModel):

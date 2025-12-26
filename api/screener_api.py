@@ -25,9 +25,6 @@ async def get_screener_list(request: ScreenerRequest):
             period_type=request.period_type
         )
         
-        logger.info(
-            "filter_stocks params: start_date=%s, industry_names=%s, period_type=%s", start_date, industry_names, period_type)
-
         return {
             "stocks": stocks,
             "count": len(stocks)
