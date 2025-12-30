@@ -34,9 +34,14 @@ async def get_screener_list(request: ScreenerRequest):
         logger.error(f"API Error: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
-### why use pass to omit the implementation?
 @router.get("/chart/{sec_code}")
 async def get_stock_chart(sec_code: str, period_type: str = "season"):
-    # 调用 Service 获取图表数据
-    # return ScreenerService.get_stock_chart_data(...)
-    pass
+    try:
+        data = ScreenerService.get_stock_chart_data(
+            sec_code=sec_code,
+            period_type=period_type
+        )
+        return data
+    except Exception as e:
+        logger.error(str(e))
+        raise HTTPException(status_code=500, detail=str(e))

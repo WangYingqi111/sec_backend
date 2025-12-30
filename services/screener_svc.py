@@ -96,7 +96,18 @@ class ScreenerService:
 
     @staticmethod
     def get_stock_chart_data(sec_code: str, period_type: str, limit: int = 8):
-        """获取单个股票绘图数据"""
-        # ... (这里放之前设计的单个股票查询逻辑) ...
-        # 为节省篇幅，逻辑同上，只做结构演示
-        pass
+        df = LICO_FN_Helper.get_performance_data(
+            period_type=1 if period_type == "season" else 2,
+            sec_codes=[sec_code]
+        )
+
+        if df.empty:
+            return []
+
+        df = df.sort_values("REPORTDATE").tail(limit)
+
+        return {
+            "dates": df["REPORTDATE"].dt.strftime("%Y-%m-%d").tolist(),
+            "revenue": df["TOTAL_OPERATE_INCOME"].tolist(),
+            "profit": df["PARENT_NETPROFIT"].tolist()
+        }
